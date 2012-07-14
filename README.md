@@ -11,3 +11,4 @@ gg - scroll to top
 G - scrol to bottom
 H/L - go back/forword
 t - create new tab
+u - undo remove tab
