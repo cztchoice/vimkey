@@ -12,3 +12,4 @@ G - scrol to bottom
 H/L - go back/forword
 t - create new tab
 u - undo remove tab
+ESC - exit edit mode to make the keybindings efficient

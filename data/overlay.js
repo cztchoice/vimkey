@@ -77,7 +77,11 @@ var Vimium = {
 	  var focusableElements = ["textarea", "select"];
 	  return focusableElements.indexOf(nodeName) >= 0;
 	},
-	// Vimium
+    suppressEvent: function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+    },
+    // Vimium
     initDoc: function() {
 		var vimium = {};
 		vimium.cmd_search = '';
@@ -87,6 +91,16 @@ var Vimium = {
 	onKeydown: function(e) { 
 		//var doc = document;
         var doc = document;
+		var editable = Vimium.isEditable(e.target);
+        // isEscape, if user press ESC key when they are in edit mode, blur it
+        if (editable && e.keyCode == 27) {
+            // Remove focus so the user can't just get himself back into insert mode by typing in the same input
+            // box.
+            console.log("in isEscape");
+            e.target.blur();
+            //exitInsertMode();
+            Vimium.suppressEvent(e);
+        }
 		var keyChar = String.fromCharCode(e.keyCode).toLowerCase();
         //console.log(keyChar);
 		if (e.shiftKey)
@@ -95,7 +109,6 @@ var Vimium = {
 			return;
 		if(!doc.vimium)
 			doc.vimium = Vimium.initDoc();
-		var editable = Vimium.isEditable(e.target);
         if(!editable && e.target.innerHTML && !e.ctrlKey) {
             doc.vimium.cmd_search += keyChar;
             var match, matched = [];
@@ -106,19 +119,16 @@ var Vimium = {
             }
             if(matched.length == 1 && matched[0] == doc.vimium.cmd_search) {
                 var action = Vimium.keymap[matched[0]];
-                switch(typeof(action)) {
-                    case "function":
+                if(typeof(action) == "function") {
                         action();
-                        break;
-                    case "string":
-                        eval(action);
-                        break;
+                        Vimium.suppressEvent(event);
                 }
                 doc.vimium.cmd_search = '';
             }
             if(matched.length <= 0)
                 doc.vimium.cmd_search = '';
         } 
+
     },
 };
 
