@@ -52,14 +52,14 @@ var Vimium = {
 	keymap: {
 		'j': function() { Vimium.scrollDown(); },
 		'k': function() { Vimium.scrollUp(); },
-		'h': function() { Vimium.scrollLeft(); },
-		'l': function() { Vimium.scrollRight(); },
+		'J': function() { Vimium.scrollPageDown(); },
+		'K': function() { Vimium.scrollPageUp(); },
 		'u': function() { Vimium.undoRemoveTab(); },
 		'r': function() { Vimium.reload(); },
 		'x': function() { Vimium.removeCurrentTab(); },
 		't': function() { Vimium.createTab(); },
-		'gt': function() { Vimium.nextTab(); },
-		'gT': function() { console.log("Vimium.previousTab");Vimium.previousTab(); },
+		'l': function() { console.log("Vimium.nextTab");Vimium.nextTab(); },
+		'h': function() { console.log("Vimium.previousTab");Vimium.previousTab(); },
 		'H': function() { Vimium.goBack(1); },
 		'L': function() { Vimium.goForward(1); },
 		//'t': function() { gBrowser.selectedTab = gBrowser.loadOneTab("about:newtab",null,null,null,false,false);  },
@@ -95,9 +95,8 @@ var Vimium = {
 			return;
 		if(!doc.vimium)
 			doc.vimium = Vimium.initDoc();
-		var active = doc.vimium.active;
 		var editable = Vimium.isEditable(e.target);
-        if(!active && !editable && e.target.innerHTML && !e.ctrlKey) {
+        if(!editable && e.target.innerHTML && !e.ctrlKey) {
             doc.vimium.cmd_search += keyChar;
             var match, matched = [];
             for(var key in Vimium.keymap) {
