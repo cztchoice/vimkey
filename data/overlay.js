@@ -56,7 +56,7 @@ var Vimium = {
 		'K': function() { Vimium.scrollPageUp(); },
 		'u': function() { Vimium.undoRemoveTab(); },
 		'r': function() { Vimium.reload(); },
-		'x': function() { Vimium.removeCurrentTab(); },
+		'd': function() { Vimium.removeCurrentTab(); },
 		't': function() { Vimium.createTab(); },
 		'l': function() { console.log("Vimium.nextTab");Vimium.nextTab(); },
 		'h': function() { console.log("Vimium.previousTab");Vimium.previousTab(); },
