@@ -2,7 +2,7 @@
     "name": "vimkey", 
     "license": "MPL 2.0", 
     "author": "cztchoice", 
-    "version": "0.1", 
+    "version": "0.2", 
     "fullName": "vimkey", 
     "id": "jid1-xjajbhqGbqqrFw", 
     "description": "An addon that provide vim keybings to firefox. Like vimkeybindings you may know."

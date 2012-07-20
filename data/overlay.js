@@ -17,10 +17,9 @@ var Vimium = {
     scrollLeft: function() { window.scrollBy(-25,0); },
     scrollRight: function() { window.scrollBy(25,0); },
     reload: function() { window.location.reload(); },
-    goBack: function(count) { history.go(-count); },
-    goForward: function(count) { history.go(count); },
+    goBack: function(count) { history.go(-1); },
+    goForward: function(count) { history.go(1); },
     undoRemoveTab: function() {
-        // body...
         self.port.emit("undoRemoveTab");
     },
     removeCurrentTab: function() {
@@ -48,23 +47,36 @@ var Vimium = {
             window.location.href = urlsplit.join('/');
         }
     },//}
+    testFunc: function(message) {
+        console.log(message);
+    },
+    invokeCommandString: function(str) {
+        //var components = str.split('.');
+        //var obj = window;
+        //for (var i = 0; i < components.length - 1; i++)
+        //obj = obj[components[i]];
+        //var func = obj[components.pop()];
+        var func = Vimium[str];
+        
+        //func();   //This usage is ok, too. But cannot return value.
+        return func.apply(Vimium);
+    },   
 
 	keymap: {
-		'j': function() { Vimium.scrollDown(); },
-		'k': function() { Vimium.scrollUp(); },
-		'J': function() { Vimium.scrollPageDown(); },
-		'K': function() { Vimium.scrollPageUp(); },
-		'u': function() { Vimium.undoRemoveTab(); },
-		'r': function() { Vimium.reload(); },
-		'd': function() { Vimium.removeCurrentTab(); },
-		't': function() { Vimium.createTab(); },
-		'l': function() { Vimium.nextTab(); },
-		'h': function() { Vimium.previousTab(); },
-		'H': function() { Vimium.goBack(1); },
-		'L': function() { Vimium.goForward(1); },
-		//'t': function() { gBrowser.selectedTab = gBrowser.loadOneTab("about:newtab",null,null,null,false,false);  },
-		'gg': function() { Vimium.scrollToTop(); },
-		'G': function() { Vimium.scrollToBottom(); }
+		'j': "scrollDown",
+		'k': "scrollUp",
+		'J': "scrollPageDown",
+		'K': "scrollPageUp",
+		'u': "undoRemoveTab",
+		'r': "reload",
+		'd': "removeCurrentTab",
+		't': "createTab",
+		'l': "nextTab",
+		'h': "previousTab",
+		'H': "goBack",
+		'L': "goForward",
+		'g': "scrollToTop",
+		'G': "scrollToBottom",
     },
     isEditable: function(target) {
 	  if (target.isContentEditable)
@@ -96,7 +108,7 @@ var Vimium = {
         if (editable && e.keyCode == 27) {
             // Remove focus so the user can't just get himself back into insert mode by typing in the same input
             // box.
-            console.log("in isEscape");
+            //console.log("in isEscape");
             e.target.blur();
             //exitInsertMode();
             Vimium.suppressEvent(e);
@@ -119,10 +131,8 @@ var Vimium = {
             }
             if(matched.length == 1 && matched[0] == doc.vimium.cmd_search) {
                 var action = Vimium.keymap[matched[0]];
-                if(typeof(action) == "function") {
-                        action();
-                        Vimium.suppressEvent(event);
-                }
+                Vimium.invokeCommandString(action);
+                Vimium.suppressEvent(e);
                 doc.vimium.cmd_search = '';
             }
             if(matched.length <= 0)

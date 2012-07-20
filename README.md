@@ -7,7 +7,7 @@ h/l - previous/next tab
 J/K - scroll page down/up
 r - reload tab
 d - close current tab
-gg - scroll to top
+g - scroll to top
 G - scrol to bottom
 H/L - go back/forword
 t - create new tab
