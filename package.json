@@ -4,6 +4,7 @@
     "author": "cztchoice", 
     "version": "0.2", 
     "fullName": "vimkey", 
+    "homepage": "https://github.com/cztchoice/vimkey",
     "id": "jid1-xjajbhqGbqqrFw", 
     "description": "An addon that provide vim keybings to firefox. Like vimkeybindings you may know."
 }
