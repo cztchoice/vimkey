@@ -2,9 +2,16 @@
     "name": "vimkey", 
     "license": "MPL 2.0", 
     "author": "cztchoice", 
-    "version": "0.2", 
+    "version": "0.3", 
     "fullName": "vimkey", 
     "homepage": "https://github.com/cztchoice/vimkey",
     "id": "jid1-xjajbhqGbqqrFw", 
-    "description": "An addon that provide vim keybings to firefox. Like vimkeybindings you may know."
+    "description": "An addon that provide vim keybings to firefox. Like vimkeybindings you may know.",
+    "preferences": [{
+        "name": "excludedUrls",
+        "title": "Exculde url list",
+        "description": "Sites that you don't want vimkey run, like gmail or other sites which have its own keybings.\nPlease seperate them with ';'",
+        "type": "string",
+        "value": "*://mail.google.com/*;*://www.google.com/reader/*;"
+    }]
 }

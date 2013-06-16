@@ -1,8 +1,15 @@
 var Vimium = {
 	init: function() {
 		// initialization code
-		this.initialized = true;
-		document.addEventListener('keydown', Vimium.onKeydown, true);
+        var url = window.location.href;
+        self.port.emit("checkExcludedUrl", url);
+        self.port.on("isExculdedUrl", function(isExcluded){
+            if(!isExcluded){
+                this.initialized = true;
+                document.addEventListener('keydown', Vimium.onKeydown, true);       
+            }
+        })
+		
 	},
     scrollToBottom: function() { window.scrollTo(window.pageXOffset, document.body.scrollHeight); },
     scrollToTop: function() { window.scrollTo(window.pageXOffset, 0); },
@@ -143,4 +150,7 @@ var Vimium = {
 };
 
 //window.alert("ContentScript loaded!");
-window.addEventListener("load", function(e) { Vimium.init(); }, false); 
+//if(Vimium.initialized == false)
+{
+    window.addEventListener("load", function(e) { Vimium.init(); }, false); 
+}

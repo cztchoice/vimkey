@@ -13,3 +13,10 @@ H/L - go back/forword
 t - create new tab  
 u - undo remove tab  
 ESC - exit edit mode to make the keybindings efficient  
+
+ChangeLog: 2013.6.16
+Add exclude url list, you can find it in the preference page
+
+TODO:
+1. Make new tab focus on the address bar
+2. While you change the exclude url, if you enter a char '/', you will goto the search bar, this is very annoying.
